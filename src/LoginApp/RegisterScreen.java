@@ -12,19 +12,20 @@ import Components.LogoComponent;
 public class RegisterScreen extends JFrame {
 
     public RegisterScreen(){
+        //START RegisterScreen()
 
         // Frame settings
-        setTitle("Register");
-        setSize(750, 600);
-        setLocationRelativeTo(null);
+        setTitle("Register"); // Title of the window
+        setSize(750, 600); // Dimensions of the window
+        setLocationRelativeTo(null); // This centers the window on the screen, so I can use absolute positioning
         setResizable(false); // Disable resizing
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // This closes the application 'X'.
 
 
         /** Main Panel **/
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.decode("#044040"));
-        mainPanel.setLayout(null); // Set layout to null for absolute positioning.
+        mainPanel.setLayout(null); // Absolute positioning for components
         add(mainPanel);
 
         /** Title and Subtitle Labels **/
@@ -129,7 +130,7 @@ public class RegisterScreen extends JFrame {
         returnButton.setBounds(150,470,90,30);
         mainPanel.add(returnButton);
 
-        returnButton.addActionListener(new ActionListener() {
+        returnButton.addActionListener(new ActionListener() { // Action listener for return button
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose(); //close the register screen
@@ -138,9 +139,11 @@ public class RegisterScreen extends JFrame {
         });
 
 
-        registerButton.addActionListener(new ActionListener() {
+        registerButton.addActionListener(new ActionListener() { // Action listener for register button
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Collect data from fields
+
                 String username = usernameField.getText();
                 String name = nameField1.getText();
                 String lastName = nameField2.getText();
@@ -149,6 +152,17 @@ public class RegisterScreen extends JFrame {
                 String password2 = new String(passwordField2.getPassword());
                 String dateOfBirth = dobField.getText();
 
+                /**
+                 * @param username      The username entered by the user.
+                 * @param name          The first name of the user.
+                 * @param lastName      The last name of the user.
+                 * @param mail          The email address of the user.
+                 * @param password1     The first password entered by the user.
+                 * @param password2     The confirmation password entered by the user.
+                 * @param dateOfBirth   The date of birth of the user.
+                 */
+
+                // Validation checks
                 if(username.isEmpty() || name.isEmpty() || lastName.isEmpty() || mail.isEmpty() || password1.isEmpty() || password2.isEmpty() || dateOfBirth.isEmpty()){
                     JOptionPane.showMessageDialog(null,"Please fill in all fields", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -156,6 +170,7 @@ public class RegisterScreen extends JFrame {
                     JOptionPane.showMessageDialog(null,"Passwords do not match","Error",JOptionPane.ERROR_MESSAGE);
                 }
                 else if(!isValidPassword(password1)) {
+                    // Show an error dialog if the password does not meet the validation criteria
                     JOptionPane.showMessageDialog(null, "Password must be at least: 8 Characters long, contain: an Uppercase Letter, a Lowercase Letter, and a Number.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else if(!isValiDateOfBirth(dateOfBirth)){
@@ -166,8 +181,8 @@ public class RegisterScreen extends JFrame {
                 }
                 else{
                     JOptionPane.showMessageDialog(null,"Registration Successful","Success",JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-                    new LoginScreen();
+                    dispose(); // Close the register screen
+                    new LoginScreen(); // Open the login screen, if the Registration was Successful.
                 }
             }
 
@@ -175,10 +190,29 @@ public class RegisterScreen extends JFrame {
 
 
         setVisible(true);
+
+        // END RegisterScreen()
     }
 
+
+    //-------------//-------------//-------------//-------------//-------------
+
+
+
      boolean isValidPassword(String password){
-        if(password.length() < 8){
+
+         /**
+          * Validates the password to ensure it meets security requirements.
+          *
+          * @param password The password to validate.
+          * @return true if the password is valid:
+          *         1. Contains at least 8 characters.
+          *         2. One uppercase letter and one lowercase letter.
+          *         3. One digit.
+          *         FALSE otherwise.
+          */
+
+        if(password.length() < 8){ // Check minimum length
             return false;
         }
 
@@ -195,25 +229,62 @@ public class RegisterScreen extends JFrame {
                 hasDigit = true;
             }
         }
+         // Return true if all conditions are met
         return hasUpperCase && hasLowerCase && hasDigit;
     }
 
+
+
+    //-------------//----------//----------//----------//----------//----------
+
+
     boolean isValidEmail(String email){
+
+        /**
+         * Validates the format of an email address using a regular expression (regex).
+         *
+         * @param email The email address to validate.
+         * @return true if the email address matches the following criteria:
+         *         1. Contains valid characters (letters, digits, '+', '_', '.', '-').
+         *         2. Has an '@' symbol separating the username and domain.
+         *         3. Ends with a valid domain (e.g., ".com", ".org").
+         *         Returns false otherwise.
+         */
+
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9+_.-]+\\.[A-za-z]{2,6}$";
-        return email.matches(emailRegex);
+        return email.matches(emailRegex);  // Matches the email against the regular expression
     }
+
+
+    //----------//----------//----------//----------//----------//----------
+
+
+
     boolean isValiDateOfBirth(String dob){
+
+        /**
+         * Validates the format of a date of birth to ensure it is in the "dd/MM/yyyy" format.
+         *
+         * @param dob The date of birth to validate.
+         * @return true if the date is valid and strictly follows the format "dd/MM/yyyy".
+         *
+         * Returns false if the format is incorrect or the date is invalid (e.g., "31/02/2024").
+         */
+
+        // Define the expected date format
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateFormat.setLenient(false);
+        dateFormat.setLenient(false); // Disable leniency to ensure strict validation
 
         try{
+            // Try parsing the date. If parsing fails, an exception will be thrown.
             dateFormat.parse(dob);
-            return true;
+            return true; // Return true if the date is valid
         }catch(ParseException e){
-            return false;
+            return false; // Return false if the date is invalid or parsing fails
         }
     }
 
+    //-------------//-------------//-------------//-------------//-------------
 
     public static void main(String[] args){
         new RegisterScreen();

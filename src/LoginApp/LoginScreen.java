@@ -10,7 +10,13 @@ import Components.LogoComponent;
 
 public class LoginScreen extends JFrame {
 
+    /**
+     * Constructor to create the login screen interface.
+     */
+
     public LoginScreen(){
+
+        //START LoginScreen()
 
         /** Frame Properties **/
         setTitle("Login");
@@ -84,20 +90,27 @@ public class LoginScreen extends JFrame {
         mainPanel.add(forgotPasswordLabel);
 
 
-        registerLabel1.addMouseListener(new java.awt.event.MouseAdapter(){
+        //-------------//-------------//-------------//-------------//-------------
+
+        registerLabel1.addMouseListener(new java.awt.event.MouseAdapter(){ /** Register Link Mouse Events **/
           @Override
           public void mouseClicked(java.awt.event.MouseEvent e){
-              dispose();
-              new RegisterScreen();
+              dispose(); // Close the login screen
+              new RegisterScreen(); // Open the registration screen
           }
           public void mouseEntered(java.awt.event.MouseEvent e){
-              registerLabel1.setForeground(Color.decode("#FFBD44"));
+              registerLabel1.setForeground(Color.decode("#FFBD44")); // Highlight on hover
           }
           public void mouseExited(java.awt.event.MouseEvent e){
-              registerLabel1.setForeground(Color.white);
+              registerLabel1.setForeground(Color.white); // Revert color on exit
           }
         });
 
+        //-------------//-------------//-------------//-------------//-------------
+
+
+
+        /** Forgot Password Link Mouse Events **/
         forgotPasswordLabel.addMouseListener(new java.awt.event.MouseAdapter(){
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e){
@@ -112,6 +125,8 @@ public class LoginScreen extends JFrame {
             }
         });
 
+        //-------------//-------------//-------------//-------------//-------------
+
         setVisible(true);
 
 
@@ -119,22 +134,31 @@ public class LoginScreen extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
+
+                /**
+                 *  Retrieve and validate user input for login.
+                 *
+                 * @param username The username of the user, entered in the username field.
+                 * @param password The username of the user, entered in the password field.
+                 */
+                String username = usernameField.getText();  // Retrieve the username
+                String password = new String(passwordField.getPassword()); // Retrieve the password
 
                 // Check username and password
                 if (username.equals("kasochon") && password.equals("1234")) {
+                    // If credentials are correct, show success message
                     JOptionPane.showMessageDialog(LoginScreen.this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
                     // Open the dashboard and close login screen
                     dispose();
-                    new MainApp.Window();
+                    new MainApp.Window(); // Open the dashboard [MainApp.Window()].
                 } else {
+                    // If credentials are incorrect, show error message
                     JOptionPane.showMessageDialog(LoginScreen.this, "Invalid Username or Password", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
+        //END LoginScreen()
     }
 
 
