@@ -86,8 +86,8 @@ public class NavigationBar extends JPanel {
         add(userName);
 
         JLabel userRole = new JLabel("Project Owner");
-        userRole.setBounds(100, positionY + 135, 100, 20);
-        userRole.setFont(new Font("Roboto", Font.PLAIN, 16));
+        userRole.setBounds(100, positionY + 135, 120, 20);
+        userRole.setFont(new Font("Roboto", Font.ITALIC, 16));
         userRole.setForeground(ThemeManager.getForeground());
         add(userRole);
 

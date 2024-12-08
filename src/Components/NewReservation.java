@@ -287,7 +287,7 @@ public class NewReservation extends JPanel {
         cardRadioButton.setForeground(ThemeManager.getForeground());
         cardRadioButton.setFocusPainted(false);
         cardRadioButton.setBackground(ThemeManager.getBackground()); // Match panel background
-        cardRadioButton.setBounds(radioButtonX + 100, radioButtonY , 150, radioButtonHeight);
+        cardRadioButton.setBounds(radioButtonX + 100, radioButtonY , 200, radioButtonHeight);
         add(cardRadioButton);
 
         // Group the radio buttons to ensure only one can be selected

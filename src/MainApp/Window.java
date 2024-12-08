@@ -10,7 +10,6 @@ public class Window extends JFrame {
     private JPanel contentPanel; // The dynamic content panel
 
 
-
     public Window() {
         //START Window()
 
@@ -92,7 +91,6 @@ public class Window extends JFrame {
     //----------
 
 
-
     public static void main(String[] args) {
         // Initialize the application
         new Window();
@@ -103,7 +101,6 @@ public class Window extends JFrame {
     }
 
     //----------
-
 
 
     /**
@@ -122,7 +119,6 @@ public class Window extends JFrame {
     }
 
     //----------
-
 
 
     /**
